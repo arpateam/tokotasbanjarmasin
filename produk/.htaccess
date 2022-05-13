@@ -5,6 +5,8 @@ RewriteEngine On
 RewriteRule ^$ template.php?module=produk&id=1 [L]
 RewriteRule ^(.*).html$ template.php?module=read-produk&judul_seo=$1&seo=$2 [L]
 
+RewriteRule ^actionAddKeranjang$ ../inc/act-keranjang.php?act=01 [L]
+
 ErrorDocument 404 https://tokotasbanjarmasin.com/404
 ErrorDocument 500 https://tokotasbanjarmasin.com/404
 ErrorDocument 503 https://tokotasbanjarmasin.com/404

@@ -1,3 +1,16 @@
+<?php
+
+    $Detail = $pdo->query("SELECT id_produk, nama_produk, status, harga, diskon, harga_final, gambar, deskripsi FROM produk WHERE seo='$_GET[judul_seo]'");
+    $resultDetail = $Detail->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultDetail == FALSE) {
+        echo "<script>window.location = '../404'</script>";
+        exit();
+        die();
+    }
+
+?>
+
 <div class="container-fluid">
     <div class="container">
         <div class="row justify-content-center px-3 px-md-4 my-4">
@@ -13,13 +26,16 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <div class="ribbonHargaRead">
-                                <h3 class="text-success"><i class="fas fa-tag"></i> Rp<?= rp($resultDetail['harga_final']) ?></h3>
-                            </div>
-                            <div class="ribbonHargaRead">
-                                <h5 class="text-muted"><del>Rp<?= rp($resultDetail['harga']) ?></del> <span class="text-danger">Disc. <?= $resultDetail['diskon'] ?>%</span></h5>
-                                <h3 class="text-success"><i class="fas fa-tag"></i> Rp<?= rp($resultDetail['harga_final']) ?></h3>
-                            </div>
+                            <?php if ($resultDetail['diskon']==="0" OR $resultDetail['diskon']===NULL OR empty($resultDetail['diskon'])): ?>
+                                <div class="ribbonHargaRead">
+                                    <h3 class="text-success"><i class="fas fa-tag"></i> Rp<?= rp($resultDetail['harga_final']) ?></h3>
+                                </div>
+                            <?php else: ?>
+                                <div class="ribbonHargaRead">
+                                    <h5 class="text-muted"><del>Rp<?= rp($resultDetail['harga']) ?></del> <span class="text-danger">Disc. <?= $resultDetail['diskon'] ?>%</span></h5>
+                                    <h3 class="text-success"><i class="fas fa-tag"></i> Rp<?= rp($resultDetail['harga_final']) ?></h3>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -37,7 +53,9 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <figure class="figure">
+                            <?php if ($resultDetail['diskon']>"0"): ?>
                                 <div class='ribbon ribbon-top-left'><span>PROMO</span></div>
+                            <?php endif ?>
                             <img src="../assets/images/produk/<?= $resultDetail['gambar'] ?>" class="figure-img img-fluid rounded" alt="Gambar <?= $resultDetail['nama_produk'] ?>">
                             <figcaption class="figure-caption">Gambar <?= $resultDetail['nama_produk'] ?></figcaption>
                         </figure>
@@ -45,6 +63,18 @@
                     </div>
                 </div>
             </div>
+
+            <!-- <div class="col-lg-3 d-none d-lg-block">
+                <div class="card shadow-sm sticky-top-card">
+                    <div class="card-body">
+                        <form method="POST" action="actKeranjang">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-lg btn-success"><i class="fas fa-shopping-cart"></i> BELI SEKARANG </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
 
         </div>
     </div>
