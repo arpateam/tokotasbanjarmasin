@@ -1,3 +1,28 @@
+<?php
+
+    $TransaksiSukses        = $pdo->query("SELECT kode_invoice FROM invoice WHERE status='Selesai'");
+    $dataTransaksiSukses    = $TransaksiSukses->rowCount(PDO::FETCH_ASSOC);
+
+    $BarangTerjual          = $pdo->query("SELECT SUM(qty) AS barangTerjual FROM invoice WHERE status='Selesai'");
+    $dataBarangTerjual      = $BarangTerjual->fetch(PDO::FETCH_ASSOC);
+
+    $TotalPenghasilan       = $pdo->query("SELECT SUM(sub_harga) AS totalPenghasilan FROM invoice WHERE status='Selesai'");
+    $dataTotalPenghasilan   = $TotalPenghasilan->fetch(PDO::FETCH_ASSOC);
+
+    $TransaksiBaru          = $pdo->query("SELECT kode_invoice FROM invoice WHERE status='Menunggu Konfirmasi'");
+    $dataTransaksiBaru      = $TransaksiBaru->rowCount(PDO::FETCH_ASSOC);
+
+    $Diproses               = $pdo->query("SELECT kode_invoice FROM invoice WHERE status='Diproses'");
+    $dataDiproses           = $Diproses->rowCount(PDO::FETCH_ASSOC);
+
+    $Dikirim                = $pdo->query("SELECT kode_invoice FROM invoice WHERE status='Dikirim'");
+    $dataDikirim            = $Dikirim->rowCount(PDO::FETCH_ASSOC);
+
+    $Selesai                = $pdo->query("SELECT kode_invoice FROM invoice WHERE status='Selesai'");
+    $dataSelesai            = $Selesai->rowCount(PDO::FETCH_ASSOC);
+
+?>
+
 <div class="content">
     <div class="panel-header bg-primary-gradient pb-5">
         <div class="page-inner py-5">
