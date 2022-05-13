@@ -1,6 +1,16 @@
+Ket:
+  - [FE-WU] = Front-End Web Utama (Fifah)
+  - [FE-PA] = Front-End Portal Admin (Fifah)
+  - [BE-WU] = Back-End Web Utama (Yoga)
+  - [BE-PA] = Back-End Portal Admin (Yoga)
+
+=================================================
+=================================================
+
 DAFTAR KERJAAN WEB TOKOTASBANJARMASIN
   - [FE-WU] Import Bootstrap
   - [FE-WU] Import Plugins Website Utama Yang di Butuhkan
+  - [FE-WU] Membuat folder assets gambar
   - [FE-WU] Membuat template web utama
   - [FE-WU] Membuat .htaccess untuk manajemen link website
   - [FE-WU] Membuat content.php untuk manajemen halaman website
