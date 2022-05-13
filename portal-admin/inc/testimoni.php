@@ -40,6 +40,11 @@
 
                                 <tbody>
 
+                                    <?php
+                                        $Data = $pdo->query("SELECT * FROM testimoni ORDER BY tgl_update DESC");
+                                        while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+
                                     <tr>
                                         <td>
                                             <a href="ubah-testimoni-<?= $resultData['id_testimoni']; ?>">
@@ -55,6 +60,8 @@
                                         </td>
                                         <td><h3 class="text-success fw-bold border border-success text-center p-2"><?= tgl2($resultData['tgl_update']); ?></h3></td>
                                     </tr>
+
+                                    <?php } ?>
 
                                 </tbody>
 
