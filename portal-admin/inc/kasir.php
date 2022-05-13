@@ -1,3 +1,45 @@
+<?php
+
+    switch ($_GET['act']) {
+        case 'view':
+
+        try {
+            $myKodeLogin    = $_SESSION["_kode_login__"];
+            $myStatus       = "Proses";
+
+            $stmtQty        = $pdo->prepare("
+                                SELECT
+                                kode_invoice, SUM(qty) AS QTY
+                                FROM keranjang
+                                WHERE session = ?
+                                AND status = ?
+                            ");
+
+            $stmtQty->bindValue(1, $myKodeLogin);
+            $stmtQty->bindValue(2, $myStatus);
+            $stmtQty->execute();
+
+            $resultStmtQty  = $stmtQty->fetch(PDO::FETCH_ASSOC);
+
+            if (empty($resultStmtQty["kode_invoice"])) {
+                $myKodeInvoice  = "#IN".date("dmY-His-").rand(100,999)."-".strtoupper(substr($_SESSION['_kode_login__'], 0, 5));
+                $myQty          = "0";
+            }else{
+                $myKodeInvoice  = $resultStmtQty["kode_invoice"];
+                $myQty          = $resultStmtQty["QTY"];
+
+                if ($myQty>99) {
+                    $myQty  = "99+";
+                }
+            }
+        } catch (Exception $e) {
+            var_dump($e);
+            exit();
+            die();
+        }
+
+?>
+
 <div class="content">
     <div class="panel-header bg-primary-gradient pb-5">
         <div class="page-inner py-5">
@@ -37,6 +79,38 @@
                                 </div>
                             <?php else: ?>
                                 <div class="row justify-content-center mt-2">
+
+                                    <?php
+                                        $totalBayar = 0;
+                                        $subBerat   = 0;
+                                        $totalBerat = 0;
+                                        $totalQty   = 0;
+
+                                        try{
+
+                                            $Keranjang  = $pdo->prepare("
+                                                SELECT
+                                                nama_produk, harga, diskon, harga_final, berat, gambar, id_keranjang, qty, sub_harga
+                                                FROM keranjang
+                                                INNER JOIN produk
+                                                ON keranjang.id_produk=produk.id_produk
+                                                WHERE session = ?
+                                                AND keranjang.status = ?
+                                                ORDER BY id_keranjang DESC
+                                            ");
+
+                                            $Keranjang->bindValue(1, $myKodeLogin);
+                                            $Keranjang->bindValue(2, $myStatus);
+                                            $Keranjang->execute();
+
+                                            while ($resultKeranjang = $Keranjang->fetch(PDO::FETCH_ASSOC)) {
+                                                $totalBayar += $resultKeranjang['sub_harga'];
+                                                $subBerat   = $resultKeranjang['berat']*$resultKeranjang['qty'];
+                                                $totalBerat += $subBerat;
+                                                $totalQty   += $resultKeranjang['qty'];
+                                                $subBerat   = 0;
+
+                                    ?>
 
                                     <div class="col-3 col-lg-2">
                                         <img src="../assets/images/produk/<?= $resultKeranjang['gambar'] ?>" alt="Gambar Produk <?= $resultKeranjang['nama_produk'] ?>" class="img-thumbnail">
@@ -110,6 +184,15 @@
 
                                     <div class="col-11 col-md-12 border-dotted-3 my-3"></div>
 
+                                    <?php
+                                            }
+                                        }catch (Exception $e){
+                                            var_dump($e);
+                                            exit();
+                                            die();
+                                        }
+                                    ?>
+
                                 </div>
 
                                 <!-- Button trigger modal -->
@@ -172,6 +255,11 @@
 
                                 <tbody>
 
+                                    <?php
+                                        $Data = $pdo->query("SELECT id_produk, nama_produk, harga, diskon, harga_final FROM produk ORDER BY urutan ASC");
+                                        while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+
                                     <tr>
                                         <td><h5><ins><?= $resultData['nama_produk']; ?></ins></h5></td>
                                         <td>
@@ -197,6 +285,8 @@
                                             </form>
                                         </td>
                                     </tr>
+
+                                    <?php } ?>
 
                                 </tbody>
 
