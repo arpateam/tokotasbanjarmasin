@@ -1,7 +1,7 @@
 <header class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-5 col-xl-4 text-center">
-            <img src="https://tokotasbanjarmasin.com/assets/images/logo-family-food-versi-desktop.png" alt="Logo <?= $namaweb; ?>" class="img-fluid">
+            <img src="../assets/images/<?= $logoVersiDesktop ?>" alt="Logo <?= $namaweb; ?>" class="img-fluid">
         </div>
     </div>
 </header>
@@ -9,7 +9,7 @@
 <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-success-navbar-dark shadow-sm py-0 py-md-3">
     <div class="container">
         <a class="navbar-brand d-block d-md-none" href="/">
-          <img src="https://tokotasbanjarmasin.com/assets/images/logo-family-food-versi-desktop.png" alt="Logo <?= $namaweb; ?>" height="50">
+          <img src="../assets/images/<?= $logoVersiMobile ?>" alt="Logo <?= $namaweb; ?>" height="50">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
                     <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" aria-current="page" href="../">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" href="../produk/">Produk</a>
+                    <a class="nav-link p-2 p-md-2 mt-2 mt-md-0 <?php if (($_GET['module']==='produk') OR ($_GET['module']==='read-produk')) { echo 'active'; } ?>" href="../produk/">Produk</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" href="../testimoni">Testimoni</a>
@@ -32,7 +32,7 @@
                     <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" href="../faq">FAQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" href="../promo/">Promo <i class="fas fa-tag"></i></a>
+                    <a class="nav-link p-2 p-md-2 mt-2 mt-md-0 <?php if (($_GET['module']==='promo') OR ($_GET['module']==='read-promo')) { echo 'active'; } ?>" href="../promo/">Promo <i class="fas fa-tag"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-2 p-md-2 mt-2 mt-md-0" href="../keranjang-saya">
