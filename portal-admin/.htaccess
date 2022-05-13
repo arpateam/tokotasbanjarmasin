@@ -1,9 +1,13 @@
 Options -Indexes +FollowSymLinks
 RewriteEngine On
-#RewriteCond %{HTTPS} off
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 RewriteRule ^masuk$ inc/login.php [L]
+RewriteRule ^actionLogin$ inc/act-login.php [L]
+
+RewriteRule ^keluar$ inc/logout.php [L]
+RewriteRule ^keluar-edit$ inc/logout-edit.php [L]
 
 
 RewriteRule ^dashboard$ template.php?module=dashboard [L]
@@ -13,15 +17,24 @@ RewriteRule ^data-admin$ template.php?module=data-admin&act=view [L]
 RewriteRule ^tambah-data-admin$ template.php?module=data-admin&act=add [L]
 RewriteRule ^ubah-password-data-admin-(.*)$ template.php?module=data-admin&act=ubah-password&kode=$1 [L]
 
+RewriteRule ^actionAddDataAdmin$ inc/act-admin-data.php?act=01 [L]
+RewriteRule ^actionEditDataAdmin$ inc/act-admin-data.php?act=02 [L]
+RewriteRule ^actionEditPasswordDataAdmin$ inc/act-admin-data.php?act=03 [L]
+
 
 RewriteRule ^pengaturan$ template.php?module=pengaturan&act=view [L]
 RewriteRule ^edit-pengaturan-([0-9]+)$ template.php?module=pengaturan&act=edit&id=$1 [L]
 RewriteRule ^banner-beranda$ template.php?module=pengaturan&act=banner-beranda [L]
 RewriteRule ^ubah-banner-beranda$ template.php?module=pengaturan&act=ubah-banner-beranda [L]
 
+RewriteRule ^actionEditPengaturan$ inc/act-settings.php?act=01 [L]
+RewriteRule ^actionBannerBeranda$ inc/act-uploader-parallax-banner.php [L]
+
 
 RewriteRule ^halaman$ template.php?module=halaman&act=view [L]
 RewriteRule ^edit-halaman-([0-9]+)$ template.php?module=halaman&act=edit&id=$1 [L]
+
+RewriteRule ^actionEditHalaman$ inc/act-pages.php?act=01 [L]
 
 
 RewriteRule ^testimoni$ template.php?module=testimoni&act=view [L]
@@ -29,23 +42,41 @@ RewriteRule ^tambah-testimoni$ template.php?module=testimoni&act=add [L]
 RewriteRule ^ubah-testimoni-(.*)$ template.php?module=testimoni&act=edit&kode=$1 [L]
 RewriteRule ^detail-testimoni-(.*)$ template.php?module=testimoni&act=detail&kode=$1 [L]
 
+RewriteRule ^actionTambahTestimoni$ inc/act-testimoni.php?act=01 [L]
+RewriteRule ^actionEditTestimoni$ inc/act-testimoni.php?act=02 [L]
+RewriteRule ^actionDeleteTestimoni-([0-9]+)$ inc/act-testimoni.php?act=03&id=$1 [L]
+
 
 RewriteRule ^faq$ template.php?module=halaman&act=tanya-jawab [L]
+RewriteRule ^actionEditTanyaJawab$ inc/act-pages.php?act=02 [L]
+
+RewriteRule ^actionUploadImgDeskripsiHalaman$ inc/act-uploader-images-halaman.php [L]
 
 
 RewriteRule ^kasir$ template.php?module=kasir&act=view [L]
+
+RewriteRule ^actionTambahKeranjang$ inc/act-kasir.php?act=01 [L]
+RewriteRule ^actionEditKeranjang$ inc/act-kasir.php?act=02 [L]
+RewriteRule ^actionDeleteKeranjang-([0-9]+)$ inc/act-kasir.php?act=03&id=$1 [L]
+RewriteRule ^actionTransaksi$ inc/act-kasir.php?act=04 [L]
 
 
 RewriteRule ^menunggu-konfirmasi$ template.php?module=menunggu-konfirmasi&act=view [L]
 RewriteRule ^aksi-menunggu-konfirmasi-(.*)$ template.php?module=menunggu-konfirmasi&act=aksi&kode=$1 [L]
 
+RewriteRule ^actionMenungguKonfirmasi$ inc/act-transaksi.php?act=01 [L]
+
 
 RewriteRule ^sedang-diproses$ template.php?module=sedang-diproses&act=view [L]
 RewriteRule ^aksi-sedang-diproses-(.*)$ template.php?module=sedang-diproses&act=aksi&kode=$1 [L]
 
+RewriteRule ^actionSedangDiproses$ inc/act-transaksi.php?act=02 [L]
+
 
 RewriteRule ^sedang-dikirim$ template.php?module=sedang-dikirim&act=view [L]
 RewriteRule ^aksi-sedang-dikirim-(.*)$ template.php?module=sedang-dikirim&act=aksi&kode=$1 [L]
+
+RewriteRule ^actionSelesaikanPesanan-(.*)$ inc/act-transaksi.php?act=03&id=$1 [L]
 
 
 RewriteRule ^pesanan-selesai$ template.php?module=pesanan-selesai&act=view [L]
@@ -57,15 +88,29 @@ RewriteRule ^tambah-produk$ template.php?module=produk&act=add [L]
 RewriteRule ^ubah-produk-(.*)$ template.php?module=produk&act=edit&kode=$1 [L]
 RewriteRule ^detail-produk-(.*)$ template.php?module=produk&act=detail&kode=$1 [L]
 
+RewriteRule ^actionTambahProduk$ inc/act-produk.php?act=01 [L]
+RewriteRule ^actionEditProduk$ inc/act-produk.php?act=02 [L]
+RewriteRule ^actionDeleteProduk-([0-9]+)$ inc/act-produk.php?act=03&id=$1 [L]
+
+RewriteRule ^actionUploadImgDeskripsiProduk$ inc/act-uploader-images-produk.php [L]
+
 
 RewriteRule ^promo$ template.php?module=promo&act=view [L]
 RewriteRule ^tambah-promo$ template.php?module=promo&act=add [L]
 RewriteRule ^ubah-promo-(.*)$ template.php?module=promo&act=edit&kode=$1 [L]
 
+RewriteRule ^actionTambahPromo$ inc/act-promo.php?act=01 [L]
+RewriteRule ^actionEditPromo$ inc/act-promo.php?act=02 [L]
+RewriteRule ^actionDeletePromo-([0-9]+)$ inc/act-promo.php?act=03&id=$1 [L]
+
+RewriteRule ^actionUploadImgDeskripsiPromo$ inc/act-uploader-images-promo.php [L]
+
 
 RewriteRule ^sitemap-one$ template.php?module=sitemap-one&act=view [L]
 RewriteRule ^tambah-sitemap-one$ template.php?module=sitemap-one&act=add [L]
 RewriteRule ^edit-sitemap-one-([0-9]+)$ template.php?module=sitemap-one&act=edit&id=$1 [L]
+
+RewriteRule ^404$ inc/404.php [L]
 
 ##### Deny access to htaccess ###############################
 <files .htaccess>
