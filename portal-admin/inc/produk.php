@@ -42,6 +42,11 @@
 
                                 <tbody>
 
+                                    <?php
+                                        $Data = $pdo->query("SELECT id_produk, urutan, nama_produk, status, harga, diskon, harga_final, berat FROM produk ORDER BY urutan ASC");
+                                        while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+
                                     <tr>
                                         <td>
                                             <a href="ubah-produk-<?= $resultData['id_produk']; ?>">
@@ -74,6 +79,8 @@
                                         </td>
                                         <td><h5 class="fw-bold text-warning"><?= rp($resultData['berat']); ?> g</h5></td>
                                     </tr>
+
+                                    <?php } ?>
 
                                 </tbody>
 
