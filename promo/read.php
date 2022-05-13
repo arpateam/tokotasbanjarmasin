@@ -1,3 +1,27 @@
+<?php
+
+    $Detail = $pdo->query("SELECT judul, gambar, deskripsi, dikunjungi, tgl_update, nama FROM promo INNER JOIN data_admin ON promo.id_data_admin = data_admin.id_data_admin WHERE judul_seo='$_GET[judul_seo]'");
+    $resultDetail = $Detail->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultDetail == FALSE) {
+        echo "<script>window.location = '../404'</script>";
+        exit();
+        die();
+    }
+
+    // Tambah kunjungan
+
+    $dikunjungi = $resultDetail["dikunjungi"]+1;
+            
+    $sql2 = "UPDATE promo SET dikunjungi = :dikunjungi WHERE judul_seo = :judul_seo";
+                  
+    $statement = $pdo->prepare($sql2);
+    $statement->bindParam(":dikunjungi", $dikunjungi, PDO::PARAM_INT);
+    $statement->bindParam(":judul_seo", $_GET["judul_seo"], PDO::PARAM_STR);
+    $count = $statement->execute();
+
+?>
+
 <div class="container-fluid">
     <div class="container">
         <div class="row justify-content-center px-3 px-md-4 my-4">

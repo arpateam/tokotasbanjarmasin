@@ -3,6 +3,12 @@
         <h5 class="card-header card-header-success text-light"><i class="fas fa-tag"></i> Produk Promo</h5>
         <div class="card-body">
             <div class="row">
+                <?php
+                    $Data = $pdo->query("SELECT nama_produk, seo, gambar, harga, diskon, harga_final, deskripsi FROM produk WHERE status='Promo' ORDER BY urutan ASC");
+                    while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                        $des    = htmlentities(strip_tags(preg_replace("/&#?[a-z0-9]+;/i","",$resultData["deskripsi"])));
+                        $des2   = substr($des,0,strrpos(substr($des,0,100)," "));
+                ?>
                 <div class="col-12 mt-2 mb-3">
                     <a href="../produk/<?= $resultData['seo'] ?>.html" class="card shadow-sm h-100 text-decoration-none produk-hover">
                         <div class='ribbon ribbon-top-left'><span>Disc. <?= $resultData['diskon'] ?>%</span></div>
@@ -17,6 +23,7 @@
                         </div>
                     </a>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>

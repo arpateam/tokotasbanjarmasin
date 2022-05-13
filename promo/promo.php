@@ -27,6 +27,16 @@
                     <h5 class="card-header card-header-success text-light"><i class="far fa-newspaper"></i> Promo</h5>
                     <div class="card-body">
                         <div class="row">
+                            <?php
+
+                                $page   = new pagingPromo;
+                                $batas  = 6;
+                                $posisi = $page->cariPosisi($batas);
+
+                                $Data   = $pdo->query("SELECT judul, judul_seo, gambar, deskripsi, tgl_update FROM promo ORDER BY tgl_update DESC LIMIT $posisi,$batas");
+                                $Data2  = $pdo->query("SELECT judul, judul_seo, gambar, deskripsi, tgl_update FROM promo ORDER BY tgl_update DESC");
+                                while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                            ?>
                             <div class="col-md-12 my-3">
                                 <div class="card h-100 produk-hover">
                                     <a href="<?= $resultData['judul_seo'] ?>.html" class="gambar-hover">
@@ -46,6 +56,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                                }
+
+                                $jmldata = $Data2->rowCount();
+                                $jmlhalaman  = $page->jmlhalaman($jmldata, $batas);
+                                $linkHalaman = $page->navHalaman($_GET['page'], $jmlhalaman);
+                                           
+                                if($jmldata>$batas){
+                            ?>
+
+                            <div class="col-12 mt-3 pt-3 border-top">
+                                <div class="wp-pagenavi">
+                                    <center><?php echo $linkHalaman; ?></center>
+                                </div>
+                            </div>
+
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

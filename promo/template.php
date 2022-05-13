@@ -1,6 +1,33 @@
+<?php
+	require "../system/koneksi.php";
+	require "../system/fungsi_indotgl.php";
+	require "../system/fungsi_modul.php";
+    require "../system/fungsi_rupiah.php";
+    require "../system/fungsi_seo.php";
+    require "../system/fungsi_telp.php";
+    require "../system/paging.php";
+    require "../system/z_setting.php";
+    require "../system/fungsi_session.php";
+?>
+
 <!DOCTYPE html>
 <html lang="id, in">
 <head>
+    
+    <meta name="google-site-verification" content="kV3-FyDUXSyHfgfwIS5sjR_jFgoq0ZOtQqh9eeWkHV4" />
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QXD4TRNLE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8QXD4TRNLE');
+    </script>
+    
+	<?php require "../system/seo_v4.php";?>
+
 	<link rel="icon" type="image/x-icon" href="../assets/images/<?= $iconWebsite; ?>" />
 
     <!-- Fonts and icons -->
