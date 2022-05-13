@@ -1,0 +1,31 @@
+Options -Indexes +FollowSymLinks
+RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^$ template.php?module=home&id=0 [L]
+RewriteRule ^testimoni$ template.php?module=testimoni&id=2 [L]
+RewriteRule ^testimoni-page-([0-9]+)$ template.php?module=testimoni&id=2&page=$1 [L]
+RewriteRule ^faq$ template.php?module=tanya-jawab&id=3 [L]
+RewriteRule ^keranjang-saya$ template.php?module=keranjang&id=5 [L]
+
+RewriteRule ^transaksi-(.*)$ template.php?module=transaksi&id=6&session=$1 [L]
+
+RewriteRule ^404$ template.php?module=404&id=0 [L]
+
+##### Deny access to htaccess ###############################
+<files .htaccess>
+    order allow,deny
+    deny from all
+</files>
+
+##### Not Found ###############################
+ErrorDocument 404 /inc/404.php
+##### Forbidden ###############################
+ErrorDocument 403 /inc/404.php
+##### Internal Server Error
+ErrorDocument 500 /inc/404.php
+##### Bad Request ###############################
+ErrorDocument 400 /inc/404.php
+##### Unauthorised ###############################
+ErrorDocument 401 /inc/404.php
