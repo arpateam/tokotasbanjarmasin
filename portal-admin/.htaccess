@@ -1,0 +1,85 @@
+Options -Indexes +FollowSymLinks
+RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^masuk$ inc/login.php [L]
+
+
+RewriteRule ^dashboard$ template.php?module=dashboard [L]
+
+
+RewriteRule ^data-admin$ template.php?module=data-admin&act=view [L]
+RewriteRule ^tambah-data-admin$ template.php?module=data-admin&act=add [L]
+RewriteRule ^ubah-password-data-admin-(.*)$ template.php?module=data-admin&act=ubah-password&kode=$1 [L]
+
+
+RewriteRule ^pengaturan$ template.php?module=pengaturan&act=view [L]
+RewriteRule ^edit-pengaturan-([0-9]+)$ template.php?module=pengaturan&act=edit&id=$1 [L]
+RewriteRule ^banner-beranda$ template.php?module=pengaturan&act=banner-beranda [L]
+RewriteRule ^ubah-banner-beranda$ template.php?module=pengaturan&act=ubah-banner-beranda [L]
+
+
+RewriteRule ^halaman$ template.php?module=halaman&act=view [L]
+RewriteRule ^edit-halaman-([0-9]+)$ template.php?module=halaman&act=edit&id=$1 [L]
+
+
+RewriteRule ^testimoni$ template.php?module=testimoni&act=view [L]
+RewriteRule ^tambah-testimoni$ template.php?module=testimoni&act=add [L]
+RewriteRule ^ubah-testimoni-(.*)$ template.php?module=testimoni&act=edit&kode=$1 [L]
+RewriteRule ^detail-testimoni-(.*)$ template.php?module=testimoni&act=detail&kode=$1 [L]
+
+
+RewriteRule ^faq$ template.php?module=halaman&act=tanya-jawab [L]
+
+
+RewriteRule ^kasir$ template.php?module=kasir&act=view [L]
+
+
+RewriteRule ^menunggu-konfirmasi$ template.php?module=menunggu-konfirmasi&act=view [L]
+RewriteRule ^aksi-menunggu-konfirmasi-(.*)$ template.php?module=menunggu-konfirmasi&act=aksi&kode=$1 [L]
+
+
+RewriteRule ^sedang-diproses$ template.php?module=sedang-diproses&act=view [L]
+RewriteRule ^aksi-sedang-diproses-(.*)$ template.php?module=sedang-diproses&act=aksi&kode=$1 [L]
+
+
+RewriteRule ^sedang-dikirim$ template.php?module=sedang-dikirim&act=view [L]
+RewriteRule ^aksi-sedang-dikirim-(.*)$ template.php?module=sedang-dikirim&act=aksi&kode=$1 [L]
+
+
+RewriteRule ^pesanan-selesai$ template.php?module=pesanan-selesai&act=view [L]
+RewriteRule ^aksi-pesanan-selesai-(.*)$ template.php?module=pesanan-selesai&act=aksi&kode=$1 [L]
+
+
+RewriteRule ^produk$ template.php?module=produk&act=view [L]
+RewriteRule ^tambah-produk$ template.php?module=produk&act=add [L]
+RewriteRule ^ubah-produk-(.*)$ template.php?module=produk&act=edit&kode=$1 [L]
+RewriteRule ^detail-produk-(.*)$ template.php?module=produk&act=detail&kode=$1 [L]
+
+
+RewriteRule ^promo$ template.php?module=promo&act=view [L]
+RewriteRule ^tambah-promo$ template.php?module=promo&act=add [L]
+RewriteRule ^ubah-promo-(.*)$ template.php?module=promo&act=edit&kode=$1 [L]
+
+
+RewriteRule ^sitemap-one$ template.php?module=sitemap-one&act=view [L]
+RewriteRule ^tambah-sitemap-one$ template.php?module=sitemap-one&act=add [L]
+RewriteRule ^edit-sitemap-one-([0-9]+)$ template.php?module=sitemap-one&act=edit&id=$1 [L]
+
+##### Deny access to htaccess ###############################
+<files .htaccess>
+    order allow,deny
+    deny from all
+</files>
+
+##### Not Found ###############################
+ErrorDocument 404 /inc/404.php
+##### Forbidden ###############################
+ErrorDocument 403 /inc/404.php
+##### Internal Server Error
+ErrorDocument 500 /inc/404.php
+##### Bad Request ###############################
+ErrorDocument 400 /inc/404.php
+##### Unauthorised ###############################
+ErrorDocument 401 /inc/404.php
