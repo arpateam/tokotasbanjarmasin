@@ -38,6 +38,11 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php
+										$no = 1;
+										$query = $pdo->query("SELECT id_$database, nama, tgl_update FROM $database WHERE id_$database!='0' AND status='On' ORDER BY urutan ASC");
+										while($result = $query->fetch(PDO::FETCH_ASSOC)){
+									?>
 									<tr>
 										<td><?= $no++; ?></td>
 										<td><?= $result['nama']; ?></td>
@@ -46,6 +51,7 @@
 											<a href="edit-<?= $link; ?>-<?= $result['id_modul']; ?>" role="button" class="btn btn-block btn-primary">Edit <i class="fas fa-edit"></i></a>
 										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</table>
