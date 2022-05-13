@@ -41,6 +41,11 @@
 
                                 <tbody>
 
+                                    <?php
+                                        $Data = $pdo->query("SELECT * FROM promo ORDER BY tgl_update DESC");
+                                        while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+
                                     <tr>
                                         <td>
                                             <a target="_blank" href="<?= $link1; ?>/promo/<?= $resultData['judul_seo']; ?>.html" role="button" class="btn btn-sm btn-success">
@@ -58,6 +63,8 @@
                                         <td><button class="btn btn-sm btn-warning"><?= $resultData['dikunjungi']; ?>x</button></td>
                                         <td><span class="text-muted"><?= tgl2($resultData['tgl_update']); ?></span></td>
                                     </tr>
+
+                                    <?php } ?>
 
                                 </tbody>
 
