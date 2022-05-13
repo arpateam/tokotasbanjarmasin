@@ -23,6 +23,24 @@
 				<div class="card">
 					<div class="card-header text-center">
 
+						<?php
+
+		                    if ($_SESSION['_notify__']==="UsernameTerdaftar") {
+		                        echo "<div class='alert alert-danger text-left mt-2 mb-4' role='alert'>";
+		                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> USERNAME SUDAH TERDAFTAR!</h4>";
+		                        echo "<hr>";
+		                        echo "<p class='mb-0'>Mohon gunakan <strong>username</strong> yang lain!</p>";
+		                        echo "</div>";
+		                    }elseif ($_SESSION['_notify__']==="PasswordTidakSama") {
+		                        echo "<div class='alert alert-danger text-left mt-2 mb-4' role='alert'>";
+		                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> PASSWORD TIDAK SAMA!</h4>";
+		                        echo "<hr>";
+		                        echo "<p class='mb-0'>Mohon masukkan <strong>password</strong> yang sama!</p>";
+		                        echo "</div>";
+		                    }
+
+		                ?>
+
 						<!-- Tambah Data Admin -->
 						<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tambahDataAdmin">
 						  	<i class="fas fa-plus"></i> Tambah <?= $hal; ?>
@@ -39,6 +57,30 @@
 							        	</button>
 							      	</div>
 							    	<div class="modal-body text-left">
+
+										<?php
+
+						                    if ($_SESSION['_notify__']==="UsernameTerdaftar") {
+						                        echo "<div class='alert alert-danger text-left my-2' role='alert'>";
+						                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> USERNAME SUDAH TERDAFTAR!</h4>";
+						                        echo "<hr>";
+						                        echo "<p class='mb-0'>Mohon gunakan <strong>username</strong> yang lain!</p>";
+						                        echo "</div>";
+						                        $_SESSION['_notify__'] = 0;
+						                    }elseif ($_SESSION['_notify__']==="PasswordTidakSama") {
+						                        echo "<div class='alert alert-danger text-left my-2' role='alert'>";
+						                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> PASSWORD TIDAK SAMA!</h4>";
+						                        echo "<hr>";
+						                        echo "<p class='mb-0'>Mohon masukkan <strong>password</strong> yang sama!</p>";
+						                        echo "</div>";
+						                        $_SESSION['_notify__'] = 0;
+						                    }else{
+						                    	echo "<div class='alert alert-warning my-2' role='alert'>";
+						                    	echo "<i class='fas fa-exclamation-triangle text-warning'></i> Mohon isi <em><u><strong>Form</strong></u></em> dibawah ini dengan <strong>lengkap & benar!</strong>";
+						                    	echo "</div>";
+						                    }
+
+						                ?>
 				                        
 				                        <hr />
 
@@ -140,6 +182,11 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php
+										$no = 1;
+										$query = $pdo->query("SELECT * FROM $database ORDER BY id_$database DESC");
+										while($result = $query->fetch(PDO::FETCH_ASSOC)){
+									?>
 									<tr>
 										<td><?= $no++; ?></td>
 										<td class="fw-bold text-primary"><?= $result['username']; ?></td>
@@ -260,6 +307,7 @@
 											<a href="ubah-password-data-admin-<?= $result['id_data_admin']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-lock"></i></a>
 										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</table>
@@ -294,6 +342,30 @@
 				<div class="card">
 					<form method="POST" action="actionAddDataAdmin" class="modal-content needs-validation" novalidate>
 						<div class="card-body">
+
+							<?php
+
+			                    if ($_SESSION['_notify__']==="UsernameTerdaftar") {
+			                        echo "<div class='alert alert-danger text-left my-2' role='alert'>";
+			                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> USERNAME SUDAH TERDAFTAR!</h4>";
+			                        echo "<hr>";
+			                        echo "<p class='mb-0'>Mohon gunakan <strong>username</strong> yang lain!</p>";
+			                        echo "</div>";
+			                        $_SESSION['_notify__'] = 0;
+			                    }elseif ($_SESSION['_notify__']==="PasswordTidakSama") {
+			                        echo "<div class='alert alert-danger text-left my-2' role='alert'>";
+			                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> PASSWORD TIDAK SAMA!</h4>";
+			                        echo "<hr>";
+			                        echo "<p class='mb-0'>Mohon masukkan <strong>password</strong> yang sama!</p>";
+			                        echo "</div>";
+			                        $_SESSION['_notify__'] = 0;
+			                    }else{
+			                    	echo "<div class='alert alert-warning my-2' role='alert'>";
+			                    	echo "<i class='fas fa-exclamation-triangle text-warning'></i> Mohon isi <em><u><strong>Form</strong></u></em> dibawah ini dengan <strong>lengkap & benar!</strong>";
+			                    	echo "</div>";
+			                    }
+
+			                ?>
 	                        
 	                        <hr />
 
@@ -410,6 +482,22 @@
 				<div class="card">
 					<form method="POST" action="actionEditPasswordDataAdmin" class="modal-content needs-validation" novalidate>
 						<div class="card-body">
+						    <?php
+
+			                    if ($_SESSION['_notify__']==="PasswordTidakSama") {
+			                        echo "<div class='alert alert-danger text-left my-2' role='alert'>";
+			                        echo "<h4 class='alert-heading text-danger'><i class='fas fa-exclamation-triangle'></i> PASSWORD TIDAK SAMA!</h4>";
+			                        echo "<hr>";
+			                        echo "<p class='mb-0'>Mohon masukkan <strong>password</strong> yang sama!</p>";
+			                        echo "</div>";
+			                        $_SESSION['_notify__'] = 0;
+			                    }else{
+			                    	echo "<div class='alert alert-warning my-2' role='alert'>";
+			                    	echo "<i class='fas fa-exclamation-triangle text-warning'></i> Mohon isi <em><u><strong>Form</strong></u></em> dibawah ini dengan <strong>lengkap & benar!</strong>";
+			                    	echo "</div>";
+			                    }
+
+			                ?>
 
 	                        <hr />
 
