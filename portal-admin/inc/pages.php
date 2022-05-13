@@ -36,6 +36,11 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php
+										$no = 1;
+										$query = $pdo->query("SELECT id_$database, judul, tgl_update FROM $database");
+										while($result = $query->fetch(PDO::FETCH_ASSOC)){
+									?>
 									<tr>
 										<td><?= $no++; ?></td>
 										<td><?= $result['judul']; ?></td>
@@ -44,6 +49,7 @@
 											<a href="edit-<?= $link; ?>-<?= $result['id_page']; ?>" role="button" class="btn btn-block btn-primary">Edit <i class="fas fa-edit"></i></a>
 										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</table>
