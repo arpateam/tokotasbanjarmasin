@@ -37,6 +37,11 @@
 
                                 <tbody>
 
+                                    <?php
+                                        $Data = $pdo->query("SELECT kode_invoice, session, nama_penerima, nomor_whatsapp, total_pembayaran FROM invoice WHERE status='Selesai' ORDER BY date_transaksi ASC");
+                                        while($resultData = $Data->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+
                                     <tr>
                                         <td>
                                             <a href="aksi-pesanan-selesai-<?= $resultData['session']; ?>">
@@ -51,6 +56,8 @@
                                         <td><h5><ins><?= $resultData['nama_penerima']; ?></ins></h5></td>
                                         <td><h3 class="fw-bold text-success">Rp<?= rp($resultData['total_pembayaran']); ?></h3></td>
                                     </tr>
+
+                                    <?php } ?>
 
                                 </tbody>
 
@@ -181,6 +188,11 @@
                                                     <div class="card-body">
                                                         <div class="row justify-content-center mt-2">
 
+                                                            <?php
+                                                                $Keranjang          = $pdo->query("SELECT nama_produk, harga, diskon, harga_final, berat, gambar, id_keranjang, qty, sub_harga FROM keranjang INNER JOIN produk ON keranjang.id_produk=produk.id_produk WHERE session='$resultData[session]' AND keranjang.status='Checkout' ORDER BY id_keranjang DESC");
+                                                                while ($resultKeranjang     = $Keranjang->fetch(PDO::FETCH_ASSOC)) {
+                                                            ?>
+
                                                             <div class="col-3 col-lg-2">
                                                                 <img src="../assets/images/produk/<?= $resultKeranjang['gambar'] ?>" alt="Gambar Produk <?= $resultKeranjang['nama_produk'] ?>" class="img-thumbnail">
                                                             </div>
@@ -203,6 +215,8 @@
                                                             </div>
 
                                                             <div class="col-11 col-md-12 border-dotted-3 my-3"></div>
+
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
 
