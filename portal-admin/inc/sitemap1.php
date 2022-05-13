@@ -1,5 +1,11 @@
 <?php
 
+	$aksi 				= "inc/act-sitemap1.php";
+	$hal 				= "Sitemap 1";
+	$module 			= "sitemap_one";
+	$database 			= "sitemap_1";
+	$link 				= "sitemap-one";
+
 	switch($_GET['act']){
 		case "view":
 
@@ -41,6 +47,10 @@
 						<a href="tambah-<?= $link; ?>" role="button" class="btn btn-block btn-primary mb-4"><i class="fas fa-plus-circle"></i> Tambah <?= $hal; ?></a>
 
 						<div class="alert alert-success" role="alert">
+							<?php
+								$SUMpage = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='1'");
+								$resultSUMpage = $SUMpage->rowCount();
+							?>
 
 						  	<p>Jumlah URL <strong class="text-success">Page 1</strong> Saat Ini <i>(max. <?= rp(50000); ?> Urls)</i></p>
 						  	<h3 class="text-success font-weight-bold"><?= $resultSUMpage; ?> URLS &nbsp;&nbsp;&nbsp; <span class="border"></span> &nbsp;&nbsp;&nbsp; <a data-toggle="collapse" href="#collapsePage" role="button" aria-expanded="false" aria-controls="collapsePage"><i class="fas fa-caret-square-down"></i></a> </h3>
@@ -58,6 +68,14 @@
 										</thead>
 										<tbody>
 
+											<?php
+
+												$no=1;
+												$Page = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='1'");
+												while($resultPage = $Page->fetch(PDO::FETCH_ASSOC)){
+
+											?>
+
 											<tr>
 												<th scope="row"><?= $no++; ?></th>
 												<td><?= $resultPage['loc_1']; ?></td>
@@ -69,7 +87,7 @@
 												</td>
 											</tr>
 
-											
+											<?php } ?>
 
 										</tbody>
 								        <tfoot>
@@ -89,6 +107,10 @@
 						</div>
 
 						<div class="alert alert-secondary" role="alert">
+							<?php
+								$SUMproduk = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='2'");
+								$resultSUMproduk = $SUMproduk->rowCount();
+							?>
 
 						  	<p>Jumlah URL <strong class="text-secondary">Produk 1</strong> Saat Ini <i>(max. <?= rp(50000); ?> Urls)</i></p>
 						  	<h3 class="text-secondary font-weight-bold"><?= $resultSUMproduk; ?> URLS &nbsp;&nbsp;&nbsp; <span class="border"></span> &nbsp;&nbsp;&nbsp; <a data-toggle="collapse" href="#collapseProduk" role="button" aria-expanded="false" aria-controls="collapseProduk"><i class="fas fa-caret-square-down"></i></a> </h3>
@@ -106,6 +128,14 @@
 										</thead>
 										<tbody>
 
+											<?php
+
+												$no=1;
+												$Produk = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='2'");
+												while($resultProduk = $Produk->fetch(PDO::FETCH_ASSOC)){
+
+											?>
+
 											<tr>
 												<th scope="row"><?= $no++; ?></th>
 												<td><?= $resultProduk['loc_1']; ?></td>
@@ -117,7 +147,7 @@
 												</td>
 											</tr>
 
-											
+											<?php } ?>
 
 										</tbody>
 								        <tfoot>
@@ -137,6 +167,10 @@
 						</div>
 
 						<div class="alert alert-primary" role="alert">
+							<?php
+								$SUMpromo = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='3'");
+								$resultSUMpromo = $SUMpromo->rowCount();
+							?>
 
 						  	<p>Jumlah URL <strong class="text-primary">Promo 1</strong> Saat Ini <i>(max. <?= rp(50000); ?> Urls)</i></p>
 						  	<h3 class="text-primary font-weight-bold"><?= $resultSUMpromo; ?> URLS &nbsp;&nbsp;&nbsp; <span class="border"></span> &nbsp;&nbsp;&nbsp; <a data-toggle="collapse" href="#collapsePromo" role="button" aria-expanded="false" aria-controls="collapsePromo"><i class="fas fa-caret-square-down"></i></a> </h3>
@@ -154,6 +188,14 @@
 										</thead>
 										<tbody>
 
+											<?php
+
+												$no=1;
+												$Promo = $pdo->query("SELECT * FROM $database WHERE id_sub_sitemap='3'");
+												while($resultPromo = $Promo->fetch(PDO::FETCH_ASSOC)){
+
+											?>
+
 											<tr>
 												<th scope="row"><?= $no++; ?></th>
 												<td><?= $resultPromo['loc_1']; ?></td>
@@ -165,7 +207,7 @@
 												</td>
 											</tr>
 
-											
+											<?php } ?>
 
 										</tbody>
 								        <tfoot>
@@ -240,9 +282,15 @@
 								<div class="form-group form-floating-label">
 									<select class="form-control input-border-bottom" id="id_sub_sitemap" name="___in_id_sub_sitemap_special_SEMANAK" required>
 										<option value="">&nbsp;</option>
+										<?php
 
+											$no=1;
+											$SubSitemap = $pdo->query("SELECT * FROM sub_sitemap");
+											while($resultSubSitemap = $SubSitemap->fetch(PDO::FETCH_ASSOC)){
+
+										?>
 										<option value="<?= $resultSubSitemap['id_sub_sitemap']; ?>"><?= $resultSubSitemap['judul']; ?></option>
-										
+										<?php } ?>
 									</select>
 									<label for="id_sub_sitemap" class="placeholder">Sub Sitemap</label>
 							      	<div class="invalid-feedback">
@@ -367,8 +415,15 @@
 								<div class="form-group form-floating-label">
 									<select class="form-control input-border-bottom" id="id_sub_sitemap" name="___in_id_sub_sitemap_special_SEMANAK" required>
 										<option value="">&nbsp;</option>
+										<?php
+
+											$no=1;
+											$SubSitemap = $pdo->query("SELECT * FROM sub_sitemap");
+											while($resultSubSitemap = $SubSitemap->fetch(PDO::FETCH_ASSOC)){
+
+										?>
 										<option value="<?= $resultSubSitemap['id_sub_sitemap']; ?>" <?php if ($resultEdit['id_sub_sitemap']===$resultSubSitemap['id_sub_sitemap']) { echo "selected"; } ?>><?= $resultSubSitemap['judul']; ?></option>
-										
+										<?php } ?>
 									</select>
 									<label for="id_sub_sitemap" class="placeholder">Sub Sitemap</label>
 							      	<div class="invalid-feedback">
