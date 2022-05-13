@@ -1,3 +1,5 @@
+<!-- [FE-WU] Membuat tampilan proses pembelian -->
+
 <div class="container-fluid">
 	<div class="container">
 		<div class="row justify-content-center px-3 px-md-4 my-4">
